@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/navio/alias-manager/internal/dotfile"
-	"github.com/navio/alias-manager/internal/shell"
+	"github.com/navio/am/internal/dotfile"
+	"github.com/navio/am/internal/shell"
 	"github.com/spf13/cobra"
 )
 

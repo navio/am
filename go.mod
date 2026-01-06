@@ -1,4 +1,4 @@
-module github.com/navio/alias-manager
+module github.com/navio/am
 
 go 1.25.5
 

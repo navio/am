@@ -19,15 +19,15 @@ A lightweight, fast CLI tool for managing shell aliases directly in your `.zshrc
 
 ```bash
 brew tap navio/tap
-brew install alias-manager
+brew install am
 ```
 
 ### From Source
 
 ```bash
 # Clone the repository
-git clone https://github.com/navio/alias-manager.git
-cd alias-manager
+git clone https://github.com/navio/am.git
+cd am
 
 # Build the binary
 go build -o am
@@ -41,7 +41,7 @@ go install
 
 ### Download Binary (Coming Soon)
 
-Download the latest release for your platform from the [releases page](https://github.com/navio/alias-manager/releases).
+Download the latest release for your platform from the [releases page](https://github.com/navio/am/releases).
 
 ## Quick Start
 
@@ -236,8 +236,8 @@ source ~/.bashrc
 
 ```bash
 # Clone the repository
-git clone https://github.com/navio/alias-manager.git
-cd alias-manager
+git clone https://github.com/navio/am.git
+cd am
 
 # Install dependencies
 go mod download
@@ -255,7 +255,7 @@ go test ./... -cover
 ### Project Structure
 
 ```
-alias-manager/
+am/
 ├── cmd/                    # CLI commands
 │   ├── root.go            # Root command
 │   ├── add.go             # Add command

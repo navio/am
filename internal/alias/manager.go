@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/navio/alias-manager/internal/dotfile"
-	"github.com/navio/alias-manager/internal/shell"
+	"github.com/navio/am/internal/dotfile"
+	"github.com/navio/am/internal/shell"
 )
 
 // Manager handles CRUD operations for aliases

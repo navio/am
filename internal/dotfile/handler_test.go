@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/navio/alias-manager/internal/shell"
+	"github.com/navio/am/internal/shell"
 )
 
 func TestReadNonExistentFile(t *testing.T) {

@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/navio/alias-manager/internal/dotfile"
-	"github.com/navio/alias-manager/internal/shell"
+	"github.com/navio/am/internal/dotfile"
+	"github.com/navio/am/internal/shell"
 )
 
 // setupTestEnv creates a temporary dotfile for testing

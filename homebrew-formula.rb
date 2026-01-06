@@ -3,18 +3,18 @@
 #
 # Usage:
 # 1. Create a repository named homebrew-tap (e.g., navio/homebrew-tap)
-# 2. Add this formula to the repository as Formula/alias-manager.rb
+# 2. Add this formula to the repository as Formula/am.rb
 # 3. Update the URL and SHA256 after creating a release
 # 4. Users can then install with:
 #    brew tap navio/tap
-#    brew install alias-manager
+#    brew install am
 
-class AliasManager < Formula
+class Am < Formula
   desc "Lightweight CLI tool for managing shell aliases"
-  homepage "https://github.com/navio/alias-manager"
+  homepage "https://github.com/navio/am"
 
   # Update these values when you create a release
-  url "https://github.com/navio/alias-manager/archive/refs/tags/v1.0.0.tar.gz"
+  url "https://github.com/navio/am/archive/refs/tags/v1.0.0.tar.gz"
   sha256 "REPLACE_WITH_ACTUAL_SHA256"
   license "MIT"
 
@@ -55,10 +55,10 @@ end
 #    - Tag your code with a version (e.g., v1.0.0)
 #    - Create a release on GitHub
 #    - GitHub will automatically create a tarball at:
-#      https://github.com/navio/alias-manager/archive/refs/tags/v1.0.0.tar.gz
+#      https://github.com/navio/am/archive/refs/tags/v1.0.0.tar.gz
 #
 # 2. Get the SHA256:
-#    curl -L https://github.com/navio/alias-manager/archive/refs/tags/v1.0.0.tar.gz | shasum -a 256
+#    curl -L https://github.com/navio/am/archive/refs/tags/v1.0.0.tar.gz | shasum -a 256
 #
 # 3. Update the formula:
 #    - Replace the URL with your actual release URL
@@ -67,14 +67,14 @@ end
 # 4. Create a tap repository:
 #    - Create a new repo: navio/homebrew-tap
 #    - Create directory: Formula/
-#    - Add this file as: Formula/alias-manager.rb
+#    - Add this file as: Formula/am.rb
 #
 # 5. Test the formula locally:
 #    brew install --build-from-source ./homebrew-formula.rb
 #
 # 6. Users can then install with:
 #    brew tap navio/tap
-#    brew install alias-manager
+#    brew install am
 #
 # 7. To update the formula after a new release:
 #    - Update the version number in the URL

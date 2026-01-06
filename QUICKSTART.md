@@ -72,7 +72,7 @@ From this point forward:
 Your complete alias manager includes:
 
 ```
-alias-manager/
+am/
 ├── am                          # Compiled binary
 ├── main.go                     # Entry point
 ├── cmd/                        # CLI commands
@@ -107,7 +107,7 @@ alias-manager/
 ### 1. Initialize Git Repository
 
 ```bash
-cd /Users/alnavarro/Development/alias-manager
+cd /Users/alnavarro/Development/am
 git init
 git add .
 git commit -m "Initial commit: Alias Manager v1.0.0"
@@ -117,7 +117,7 @@ git commit -m "Initial commit: Alias Manager v1.0.0"
 
 ```bash
 # Create repo on GitHub, then:
-git remote add origin https://github.com/navio/alias-manager.git
+git remote add origin https://github.com/navio/am.git
 git branch -M main
 git push -u origin main
 ```
@@ -136,14 +136,14 @@ Then create a release on GitHub using the tag.
 1. Create a new repository: `navio/homebrew-tap`
 2. Get the SHA256 of your release:
    ```bash
-   curl -L https://github.com/navio/alias-manager/archive/refs/tags/v1.0.0.tar.gz | shasum -a 256
+   curl -L https://github.com/navio/am/archive/refs/tags/v1.0.0.tar.gz | shasum -a 256
    ```
 3. Update `homebrew-formula.rb` with the actual SHA256
-4. Copy it to `homebrew-tap` repository as `Formula/alias-manager.rb`
+4. Copy it to `homebrew-tap` repository as `Formula/am.rb`
 5. Users can install with:
    ```bash
    brew tap navio/tap
-   brew install alias-manager
+   brew install am
    ```
 
 ## Test Coverage

@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/navio/alias-manager/internal/alias"
+	"github.com/navio/am/internal/alias"
 	"github.com/spf13/cobra"
 )
 

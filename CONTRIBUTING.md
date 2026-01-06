@@ -7,12 +7,12 @@ Thank you for your interest in contributing to Alias Manager! This document prov
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/alias-manager.git
-   cd alias-manager
+   git clone https://github.com/YOUR-USERNAME/am.git
+   cd am
    ```
 3. **Add upstream remote**:
    ```bash
-   git remote add upstream https://github.com/navio/alias-manager.git
+   git remote add upstream https://github.com/navio/am.git
    ```
 
 ## Development Setup
@@ -154,7 +154,7 @@ All submissions require review. We use GitHub pull requests for this purpose. Yo
 ## Project Structure
 
 ```
-alias-manager/
+am/
 ├── cmd/                    # CLI commands
 │   ├── root.go            # Root command and setup
 │   ├── add.go             # Add command

@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/navio/alias-manager/internal/shell"
+	"github.com/navio/am/internal/shell"
 )
 
 // Handler manages reading, writing, and backing up dotfiles
