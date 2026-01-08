@@ -15,9 +15,13 @@ A lightweight, fast CLI tool for managing shell aliases directly in your `.zshrc
 
 ## Installation
 
-### Via Homebrew (Recommended - Coming Soon)
+### Via Homebrew (Recommended)
 
 ```bash
+# One-step install
+brew install navio/tap/am
+
+# Or tap first, then install
 brew tap navio/tap
 brew install am
 ```
