@@ -33,8 +33,18 @@ func TestDetectShell(t *testing.T) {
 			want:     Bash,
 		},
 		{
-			name:     "unknown shell",
+			name:     "fish shell",
 			shellEnv: "/bin/fish",
+			want:     Fish,
+		},
+		{
+			name:     "fish with custom path",
+			shellEnv: "/usr/local/bin/fish",
+			want:     Fish,
+		},
+		{
+			name:     "unknown shell",
+			shellEnv: "/bin/tcsh",
 			want:     Unknown,
 		},
 		{
@@ -67,24 +77,30 @@ func TestGetDotfilePath(t *testing.T) {
 	tests := []struct {
 		name        string
 		shellEnv    string
-		wantName    string
+		wantPath    string
 		wantError   bool
 	}{
 		{
 			name:      "zsh dotfile",
 			shellEnv:  "/bin/zsh",
-			wantName:  ".zshrc",
+			wantPath:  ".zshrc",
 			wantError: false,
 		},
 		{
 			name:      "bash dotfile",
 			shellEnv:  "/bin/bash",
-			wantName:  ".bashrc",
+			wantPath:  ".bashrc",
+			wantError: false,
+		},
+		{
+			name:      "fish dotfile",
+			shellEnv:  "/bin/fish",
+			wantPath:  ".config/fish/config.fish",
 			wantError: false,
 		},
 		{
 			name:      "unknown shell error",
-			shellEnv:  "/bin/fish",
+			shellEnv:  "/bin/tcsh",
 			wantError: true,
 		},
 	}
@@ -113,13 +129,9 @@ func TestGetDotfilePath(t *testing.T) {
 				return
 			}
 
-			if filepath.Base(got) != tt.wantName {
-				t.Errorf("GetDotfilePath() = %v, want filename %v", got, tt.wantName)
-			}
-
-			// Verify it's in the home directory
+			// Verify it's in the home directory and ends with expected path
 			homeDir, _ := os.UserHomeDir()
-			expectedPath := filepath.Join(homeDir, tt.wantName)
+			expectedPath := filepath.Join(homeDir, tt.wantPath)
 			if got != expectedPath {
 				t.Errorf("GetDotfilePath() = %v, want %v", got, expectedPath)
 			}
@@ -147,8 +159,14 @@ func TestGetShellType(t *testing.T) {
 			wantError: false,
 		},
 		{
-			name:      "unknown shell",
+			name:      "valid fish",
 			shellEnv:  "/bin/fish",
+			want:      Fish,
+			wantError: false,
+		},
+		{
+			name:      "unknown shell",
+			shellEnv:  "/bin/tcsh",
 			wantError: true,
 		},
 	}

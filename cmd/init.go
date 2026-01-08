@@ -18,14 +18,15 @@ This wrapper automatically sources your shell configuration after add/update/del
 operations, so changes take effect immediately without manual sourcing.
 
 This command:
-- Detects your shell (bash or zsh)
+- Detects your shell (bash, zsh, or fish)
 - Adds the am() wrapper function to your dotfile
 - Creates a backup before modifying (.bak)
 - Only needs to be run once
 
 After running this, restart your shell or run:
-  source ~/.zshrc    (for zsh)
-  source ~/.bashrc   (for bash)`,
+  source ~/.zshrc                      (for zsh)
+  source ~/.bashrc                     (for bash)
+  source ~/.config/fish/config.fish    (for fish)`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		detector := shell.NewDetector()
 		shellType, err := detector.GetShellType()
@@ -99,7 +100,8 @@ After running this, restart your shell or run:
 func generateWrapper(shellType shell.ShellType) []string {
 	var wrapper []string
 
-	if shellType == shell.Zsh {
+	switch shellType {
+	case shell.Zsh:
 		wrapper = []string{
 			"am() {",
 			"  command am \"$@\"",
@@ -111,7 +113,7 @@ func generateWrapper(shellType shell.ShellType) []string {
 			"  return $exit_code",
 			"}",
 		}
-	} else {
+	case shell.Bash:
 		wrapper = []string{
 			"am() {",
 			"  command am \"$@\"",
@@ -119,6 +121,30 @@ func generateWrapper(shellType shell.ShellType) []string {
 			"  # Auto-source after modifying commands",
 			"  if [ $exit_code -eq 0 ] && [[ \"$1\" =~ ^(add|update|delete)$ ]]; then",
 			"    source ~/.bashrc",
+			"  fi",
+			"  return $exit_code",
+			"}",
+		}
+	case shell.Fish:
+		wrapper = []string{
+			"function am",
+			"  command am $argv",
+			"  set exit_code $status",
+			"  # Auto-source after modifying commands",
+			"  if test $exit_code -eq 0; and string match -qr '^(add|update|delete)$' -- $argv[1]",
+			"    source ~/.config/fish/config.fish",
+			"  end",
+			"  return $exit_code",
+			"end",
+		}
+	default:
+		wrapper = []string{
+			"am() {",
+			"  command am \"$@\"",
+			"  local exit_code=$?",
+			"  # Auto-source after modifying commands",
+			"  if [ $exit_code -eq 0 ] && [[ \"$1\" =~ ^(add|update|delete)$ ]]; then",
+			"    source ~/.zshrc",
 			"  fi",
 			"  return $exit_code",
 			"}",

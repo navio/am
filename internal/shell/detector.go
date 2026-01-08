@@ -13,6 +13,7 @@ type ShellType string
 const (
 	Bash    ShellType = "bash"
 	Zsh     ShellType = "zsh"
+	Fish    ShellType = "fish"
 	Unknown ShellType = "unknown"
 )
 
@@ -39,6 +40,8 @@ func (d *Detector) DetectShell() ShellType {
 		return Zsh
 	case strings.Contains(shellName, "bash"):
 		return Bash
+	case strings.Contains(shellName, "fish"):
+		return Fish
 	default:
 		return Unknown
 	}
@@ -53,24 +56,26 @@ func (d *Detector) GetDotfilePath() (string, error) {
 		return "", fmt.Errorf("failed to get home directory: %w", err)
 	}
 
-	var dotfileName string
+	var dotfilePath string
 	switch shellType {
 	case Zsh:
-		dotfileName = ".zshrc"
+		dotfilePath = filepath.Join(homeDir, ".zshrc")
 	case Bash:
-		dotfileName = ".bashrc"
+		dotfilePath = filepath.Join(homeDir, ".bashrc")
+	case Fish:
+		dotfilePath = filepath.Join(homeDir, ".config", "fish", "config.fish")
 	case Unknown:
-		return "", fmt.Errorf("unable to detect shell type (SHELL=%s). Supported shells: bash, zsh", os.Getenv("SHELL"))
+		return "", fmt.Errorf("unable to detect shell type (SHELL=%s). Supported shells: bash, zsh, fish", os.Getenv("SHELL"))
 	}
 
-	return filepath.Join(homeDir, dotfileName), nil
+	return dotfilePath, nil
 }
 
 // GetShellType returns the current shell type
 func (d *Detector) GetShellType() (ShellType, error) {
 	shellType := d.DetectShell()
 	if shellType == Unknown {
-		return Unknown, fmt.Errorf("unable to detect shell type (SHELL=%s). Supported shells: bash, zsh", os.Getenv("SHELL"))
+		return Unknown, fmt.Errorf("unable to detect shell type (SHELL=%s). Supported shells: bash, zsh, fish", os.Getenv("SHELL"))
 	}
 	return shellType, nil
 }

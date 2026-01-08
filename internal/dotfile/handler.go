@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/navio/am/internal/shell"
@@ -125,12 +126,20 @@ func (h *Handler) Create(path string, shellType shell.ShellType) error {
 		return nil // File already exists, nothing to do
 	}
 
+	// Ensure parent directory exists (important for Fish)
+	dir := filepath.Dir(path)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return fmt.Errorf("failed to create directory: %w", err)
+	}
+
 	var header string
 	switch shellType {
 	case shell.Zsh:
 		header = "# Zsh configuration file\n# Managed by alias-manager\n\n"
 	case shell.Bash:
 		header = "# Bash configuration file\n# Managed by alias-manager\n\n"
+	case shell.Fish:
+		header = "# Fish configuration file\n# Managed by alias-manager\n\n"
 	default:
 		header = "# Shell configuration file\n# Managed by alias-manager\n\n"
 	}
@@ -176,6 +185,8 @@ func (h *Handler) ReadOrCreate(path string, shellType shell.ShellType) ([]string
 			header = []string{"# Zsh configuration file", "# Managed by alias-manager", ""}
 		case shell.Bash:
 			header = []string{"# Bash configuration file", "# Managed by alias-manager", ""}
+		case shell.Fish:
+			header = []string{"# Fish configuration file", "# Managed by alias-manager", ""}
 		default:
 			header = []string{"# Shell configuration file", "# Managed by alias-manager", ""}
 		}

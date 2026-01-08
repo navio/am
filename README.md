@@ -57,11 +57,12 @@ Run this command once to enable auto-sourcing:
 am init
 ```
 
-This adds a shell wrapper function to your `.zshrc` or `.bashrc` that automatically reloads your shell configuration after adding, updating, or deleting aliases. After running `am init`, restart your shell or run:
+This adds a shell wrapper function to your `.zshrc`, `.bashrc`, or `config.fish` that automatically reloads your shell configuration after adding, updating, or deleting aliases. After running `am init`, restart your shell or run:
 
 ```bash
-source ~/.zshrc  # for zsh
-source ~/.bashrc # for bash
+source ~/.zshrc                      # for zsh
+source ~/.bashrc                     # for bash
+source ~/.config/fish/config.fish    # for fish
 ```
 
 **From this point forward, all alias changes take effect immediately!**
@@ -139,6 +140,7 @@ Alias Manager works directly with your shell configuration files:
 2. **File Location**: Finds the appropriate dotfile:
    - Zsh: `~/.zshrc`
    - Bash: `~/.bashrc`
+   - Fish: `~/.config/fish/config.fish`
 3. **Safe Modifications**: Creates a `.bak` backup before any write operation
 4. **Structure Preservation**: Only modifies alias lines, preserving everything else
 
@@ -208,6 +210,10 @@ source ~/.zshrc
 # For bash users
 cp ~/.bashrc.bak ~/.bashrc
 source ~/.bashrc
+
+# For fish users
+cp ~/.config/fish/config.fish.bak ~/.config/fish/config.fish
+source ~/.config/fish/config.fish
 ```
 
 ## Applying Changes
@@ -226,6 +232,9 @@ source ~/.zshrc
 
 # For bash
 source ~/.bashrc
+
+# For fish
+source ~/.config/fish/config.fish
 
 # Or simply start a new shell session
 ```
@@ -300,10 +309,11 @@ go tool cover -html=coverage.out
 
 - **Zsh** (`.zshrc`)
 - **Bash** (`.bashrc`)
+- **Fish** (`~/.config/fish/config.fish`)
 
 ## Limitations
 
-- Only works with bash and zsh
+- Only works with bash, zsh, and fish
 - Aliases must be in the format: `alias name='command'`
 - Does not support multi-line aliases (with backslash continuation)
 - Does not support alias functions or complex shell scripting
