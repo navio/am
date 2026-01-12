@@ -107,6 +107,8 @@ class Am < Formula
   sha256 "PASTE_YOUR_SHA256_HERE"  # ← Replace this with the actual SHA256
   license "MIT"
 
+  bottle :unneeded
+
   depends_on "go" => :build
 
   def install
