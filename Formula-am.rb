@@ -5,8 +5,6 @@ class Am < Formula
   sha256 "4ab5ad31b6e885dae8ea2af1e97e7f225fbb5a029f6875937d7437cd369a7781"
   license "MIT"
 
-  bottle :unneeded
-
   depends_on "go" => :build
 
   def install

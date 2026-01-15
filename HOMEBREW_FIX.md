@@ -17,7 +17,7 @@ Homebrew's automated bottle (pre-compiled binary) building system created bottle
 
 ## Solution
 
-Disable bottles and force building from source by adding `bottle :unneeded` to the formula. This is appropriate for `am` because:
+Disable bottles and force building from source by omitting the bottle declaration from the formula. This is appropriate for `am` because:
 - It's a lightweight Go application that compiles quickly (< 10 seconds)
 - Go produces static binaries that work across macOS versions
 - Building from source avoids bottle SDK compatibility issues
@@ -31,7 +31,7 @@ Clone or navigate to your tap repository:
 cd ~/path/to/homebrew-tap
 ```
 
-Edit `Formula/am.rb` and add the `bottle :unneeded` line after the license declaration:
+Edit `Formula/am.rb` and ensure there is NO bottle declaration. The formula should look like this:
 
 ```ruby
 class Am < Formula
@@ -41,13 +41,13 @@ class Am < Formula
   sha256 "4ab5ad31b6e885dae8ea2af1e97e7f225fbb5a029f6875937d7437cd369a7781"
   license "MIT"
 
-  bottle :unneeded  # ← Add this line
-
   depends_on "go" => :build
 
   # ... rest of the formula
 end
 ```
+
+Note: Remove any `bottle` lines if present.
 
 ### 2. Commit and push the fix
 
@@ -77,12 +77,12 @@ brew install navio/tap/am
 
 ## Prevention for Future Releases
 
-Always include `bottle :unneeded` in the formula for future version updates to prevent this issue from recurring. The updated formula template should include this line by default.
+Always omit the bottle declaration from the formula for future version updates to prevent this issue from recurring. The formula should not contain any `bottle` lines.
 
 ## Technical Details
 
 - **Bottle**: Pre-compiled binary packages that Homebrew creates for faster installation
-- **bottle :unneeded**: Directive that tells Homebrew to always build from source instead of using bottles
+- **Omitting bottle declaration**: When no bottle block is present, Homebrew builds from source instead of using pre-compiled bottles
 - **Why it happened**: Homebrew's bottle building infrastructure may have used an incorrect or future SDK version (26.0) that doesn't exist
 - **Why disable bottles**: Go applications build quickly and produce static binaries, making source builds practical
 

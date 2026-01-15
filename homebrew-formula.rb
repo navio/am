@@ -18,8 +18,6 @@ class Am < Formula
   sha256 "REPLACE_WITH_ACTUAL_SHA256"
   license "MIT"
 
-  bottle :unneeded
-
   depends_on "go" => :build
 
   def install
