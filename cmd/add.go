@@ -10,8 +10,9 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add <name> <command>",
-	Short: "Add a new alias",
+	Use:     "add <name> <command>",
+	Aliases: []string{"a"},
+	Short:   "Add a new alias",
 	Long: `Add a new alias to your shell configuration file.
 The alias will be added to your .zshrc or .bashrc depending on your current shell.
 

@@ -9,8 +9,9 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:   "delete <name>",
-	Short: "Delete an alias",
+	Use:     "delete <name>",
+	Aliases: []string{"rm"},
+	Short:   "Delete an alias",
 	Long: `Delete an alias from your shell configuration file.
 
 Example:

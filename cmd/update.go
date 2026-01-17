@@ -10,8 +10,9 @@ import (
 )
 
 var updateCmd = &cobra.Command{
-	Use:   "update <name> <new-command>",
-	Short: "Update an existing alias",
+	Use:     "update <name> <new-command>",
+	Aliases: []string{"up"},
+	Short:   "Update an existing alias",
 	Long: `Update the command for an existing alias.
 
 Example:

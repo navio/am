@@ -10,8 +10,9 @@ import (
 )
 
 var listCmd = &cobra.Command{
-	Use:   "list [search_term]",
-	Short: "List all aliases",
+	Use:     "list [search_term]",
+	Aliases: []string{"ls"},
+	Short:   "List all aliases",
 	Long: `List all aliases defined in your shell configuration file.
 Optionally, provide a search term to filter aliases by name.
 
