@@ -5,9 +5,10 @@ A lightweight, fast CLI tool for managing shell aliases directly in your `.zshrc
 ## Features
 
 - **Simple Commands**: Easy-to-use interface for managing aliases
+- **Quick Aliases**: Short command aliases for faster access (`ls`, `a`, `rm`, `up`)
 - **Direct File Manipulation**: Works directly with your dotfiles - no separate database
 - **Automatic Backups**: Creates `.bak` files before any modification for safety
-- **Shell Detection**: Automatically detects whether you're using bash or zsh
+- **Shell Detection**: Automatically detects whether you're using bash, zsh, or fish
 - **Search Functionality**: Filter aliases by name
 - **Preserves Structure**: Maintains all comments, blank lines, and file organization
 - **Zero Dependencies**: Single binary with no runtime dependencies
@@ -146,15 +147,23 @@ Alias Manager works directly with your shell configuration files:
 
 ## Command Reference
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `am init` | Initialize auto-sourcing wrapper (run once) | `am init` |
-| `am add <name> <command>` | Add a new alias | `am add ll 'ls -la'` |
-| `am list [search]` | List all aliases, optionally filtered | `am list git` |
-| `am update <name> <command>` | Update an existing alias | `am update ll 'ls -lah'` |
-| `am delete <name>` | Delete an alias | `am delete ll` |
-| `am --version` | Show version | `am --version` |
-| `am --help` | Show help | `am --help` |
+| Command | Alias | Description | Example |
+|---------|-------|-------------|---------|
+| `am init` | - | Initialize auto-sourcing wrapper (run once) | `am init` |
+| `am add <name> <command>` | `am a` | Add a new alias | `am add ll 'ls -la'` or `am a ll 'ls -la'` |
+| `am list [search]` | `am ls` | List all aliases, optionally filtered | `am list git` or `am ls git` |
+| `am update <name> <command>` | `am up` | Update an existing alias | `am update ll 'ls -lah'` or `am up ll 'ls -lah'` |
+| `am delete <name>` | `am rm` | Delete an alias | `am delete ll` or `am rm ll` |
+| `am --version` | - | Show version | `am --version` |
+| `am --help` | - | Show help | `am --help` |
+
+### Quick Aliases
+
+For faster access, you can use these short aliases:
+- `am ls` instead of `am list`
+- `am a` instead of `am add`
+- `am rm` instead of `am delete`
+- `am up` instead of `am update`
 
 ## Examples
 
