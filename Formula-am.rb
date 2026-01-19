@@ -2,7 +2,7 @@ class Am < Formula
   desc "Lightweight CLI tool for managing shell aliases"
   homepage "https://github.com/navio/am"
   url "https://github.com/navio/am/archive/refs/tags/v1.2.0.tar.gz"
-  sha256 "PENDING_RELEASE"
+  sha256 "71f283938375bb36fb5627d5d8dd700e78ba1c50d93db1fa5f0f0d9c8c526805"
   license "MIT"
 
   depends_on "go" => :build
