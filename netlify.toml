@@ -1,6 +1,6 @@
 [build]
   base = "doc"
-  publish = "doc/.vitepress/dist"
+  publish = ".vitepress/dist"
   command = "npm ci && npm run docs:build"
 
 [dev]
