@@ -1,0 +1,13 @@
+[build]
+  base = "doc"
+  publish = "doc/.vitepress/dist"
+  command = "npm ci && npm run docs:build"
+
+[dev]
+  command = "npm run docs:dev"
+  targetPort = 4173
+  port = 8888
+  framework = "vitepress"
+
+[build.environment]
+  NODE_VERSION = "20"
