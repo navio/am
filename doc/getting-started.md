@@ -50,3 +50,15 @@ am list
 ```
 
 You should see `ll → ls -la` listed. If not, confirm your shell profile path matches your shell and that `am init` ran successfully.
+
+## Optional: sync across machines
+
+If you want your aliases mirrored to other machines, install the [GitHub CLI](https://cli.github.com) (e.g. `brew install gh`), authenticate it once, and then run:
+
+```bash
+gh auth login
+am sync init --gist
+am sync push
+```
+
+See the [Sync section in Command Reference](/commands#sync-across-machines) for the full workflow.

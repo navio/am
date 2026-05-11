@@ -21,6 +21,8 @@ features:
     details: Zero runtime dependencies, cross-platform, and ready to ship via Homebrew or source builds.
   - title: Immediate Changes
     details: The am init wrapper re-sources your shell after updates so aliases apply right away.
+  - title: Sync Across Machines
+    details: am sync mirrors your aliases to a private GitHub Gist (requires the gh CLI) so every machine stays in step.
 ---
 
 Welcome to the Alias Manager (am) docs. Use the navigation to install, learn the workflow, and ship safely.

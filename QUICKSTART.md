@@ -60,6 +60,8 @@ From this point forward:
 - `am update` - Updates alias and reloads automatically
 - `am delete` - Deletes alias and reloads automatically
 - `am list` - Shows all your aliases
+- `am export` / `am import` - Back up and restore aliases as JSON
+- `am sync` - Sync aliases across machines via a private GitHub Gist (requires the [`gh`](https://cli.github.com) CLI)
 
 ## Current Status
 
