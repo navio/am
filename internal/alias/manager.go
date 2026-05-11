@@ -160,6 +160,74 @@ func (m *Manager) Update(name, newCommand string) error {
 	return nil
 }
 
+// ImportResult summarizes the outcome of an import operation
+type ImportResult struct {
+	Added     []string
+	Updated   []string
+	Skipped   []string
+	Conflicts []string
+}
+
+// ImportMany imports multiple aliases at once.
+// If overwrite is true, existing aliases are updated; otherwise they are skipped.
+// If dryRun is true, no changes are written to disk.
+func (m *Manager) ImportMany(entries map[string]string, overwrite, dryRun bool) (*ImportResult, error) {
+	aliasFile, err := m.LoadAliases()
+	if err != nil {
+		return nil, err
+	}
+
+	result := &ImportResult{}
+
+	for name, command := range entries {
+		if err := m.validateAliasName(name); err != nil {
+			result.Skipped = append(result.Skipped, name)
+			continue
+		}
+		if strings.TrimSpace(command) == "" {
+			result.Skipped = append(result.Skipped, name)
+			continue
+		}
+
+		existing := m.findAlias(aliasFile, name)
+		if existing == nil {
+			aliasFile.Lines = append(aliasFile.Lines, m.parser.FormatAlias(name, command))
+			// Re-parse so subsequent lookups in this loop find the just-added alias
+			if err := m.parser.Parse(aliasFile); err != nil {
+				return nil, fmt.Errorf("failed to re-parse aliases: %w", err)
+			}
+			result.Added = append(result.Added, name)
+			continue
+		}
+
+		if existing.Command == command {
+			result.Skipped = append(result.Skipped, name)
+			continue
+		}
+
+		if overwrite {
+			aliasFile.Lines[existing.LineNum] = m.parser.FormatAlias(name, command)
+			result.Updated = append(result.Updated, name)
+		} else {
+			result.Conflicts = append(result.Conflicts, name)
+		}
+	}
+
+	if dryRun {
+		return result, nil
+	}
+
+	if len(result.Added) == 0 && len(result.Updated) == 0 {
+		return result, nil
+	}
+
+	if err := m.handler.Write(aliasFile.Path, aliasFile.Lines); err != nil {
+		return nil, fmt.Errorf("failed to write dotfile: %w", err)
+	}
+
+	return result, nil
+}
+
 // Get retrieves a specific alias by name
 func (m *Manager) Get(name string) (*Alias, error) {
 	aliasFile, err := m.LoadAliases()
