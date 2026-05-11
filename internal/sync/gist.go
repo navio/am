@@ -10,7 +10,7 @@ import (
 )
 
 // ErrGhMissing is returned when the gh CLI is not available on PATH.
-var ErrGhMissing = errors.New("the GitHub CLI (gh) is required for gist sync. Install it from https://cli.github.com")
+var ErrGhMissing = errors.New("the GitHub CLI (gh) is required for 'am sync'. Install it from https://cli.github.com and run 'gh auth login'")
 
 // GistClient talks to GitHub Gists via the gh CLI.
 type GistClient struct {

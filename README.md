@@ -153,6 +153,9 @@ Alias Manager works directly with your shell configuration files:
 | `am list [search]` | List all aliases, optionally filtered | `am list git` |
 | `am update <name> <command>` | Update an existing alias | `am update ll 'ls -lah'` |
 | `am delete <name>` | Delete an alias | `am delete ll` |
+| `am export [--format json\|shell] [-o FILE]` | Export aliases | `am export -o aliases.json` |
+| `am import <file> [--overwrite] [--dry-run]` | Import aliases from JSON | `am import aliases.json` |
+| `am sync {init,push,pull,status}` | Sync via a private Gist (requires [`gh`](https://cli.github.com)) | `am sync push` |
 | `am --version` | Show version | `am --version` |
 | `am --help` | Show help | `am --help` |
 
@@ -189,6 +192,41 @@ am update gs 'git status -sb'
 # Remove unused aliases
 am delete serve
 ```
+
+## Sync Across Machines
+
+`am sync` keeps your aliases in lockstep on every machine you use, backed by a private GitHub Gist.
+
+### Requirements
+
+> **The [GitHub CLI (`gh`)](https://cli.github.com) is required.** Every `am sync` subcommand except `status` shells out to `gh`. Install it (e.g. `brew install gh`) and authenticate once with:
+>
+> ```bash
+> gh auth login
+> ```
+
+### Workflow
+
+```bash
+# 1. Configure (creates a new private gist by default)
+am sync init --gist
+
+# 1b. Or attach to an existing gist (e.g. on a second machine):
+am sync init --gist --id <gistID>
+
+# 2. Push local aliases to the remote
+am sync push
+
+# 3. Pull remote aliases into another machine
+am sync pull              # conflicts are reported, not overwritten
+am sync pull --overwrite  # replace local on conflict
+am sync pull --dry-run    # preview only
+
+# 4. Inspect configuration and last-sync info
+am sync status
+```
+
+Sync configuration is stored at `~/.config/am/config.json` (respects `XDG_CONFIG_HOME`). The remote payload uses the same JSON shape as `am export`.
 
 ## Safety Features
 

@@ -24,6 +24,13 @@ var syncCmd = &cobra.Command{
 	Short: "Sync aliases across machines via a private GitHub Gist",
 	Long: `Sync your aliases between machines using a private GitHub Gist.
 
+REQUIREMENTS:
+  The GitHub CLI (gh) MUST be installed and authenticated for 'am sync' to
+  work. Install it from https://cli.github.com and run 'gh auth login' once.
+  Every subcommand below (init / push / pull / status*) shells out to 'gh'.
+
+  *'am sync status' works without gh - it only reads local config.
+
 The sync feature reuses the JSON format produced by 'am export' and stores
 its configuration in ~/.config/am/config.json (override with $AM_CONFIG_DIR
 or $XDG_CONFIG_HOME).
@@ -34,9 +41,7 @@ Examples:
   am sync push                         # upload local aliases
   am sync pull                         # download (skips conflicts)
   am sync pull --overwrite             # download and replace conflicts
-  am sync status                       # show remote config & last sync
-
-Requires the GitHub CLI (https://cli.github.com) authenticated via 'gh auth login'.`,
+  am sync status                       # show remote config & last sync`,
 }
 
 var syncInitCmd = &cobra.Command{
